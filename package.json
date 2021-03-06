@@ -3,13 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --mode=develoment",
+    "build": "vue-cli-service build --mode=production",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "mockjs": "^1.1.0",
+    "node-sass": "^4.13.0",
+    "router": "^1.3.5",
+    "sass-loader": "^8.0.0",
+    "swiper": "^5.4.5",
+    "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-axios": "^3.2.4",
+    "vue-cookie": "^1.1.4",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
