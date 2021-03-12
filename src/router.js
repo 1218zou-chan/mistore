@@ -10,7 +10,7 @@ export default new Router({
            redirect:'/index',
            children:[
                {
-                   name:indexedDB,
+                   name:'index',
                    path:'/index',
                    component:()=>import('./pages/index.vue')
                },
@@ -30,6 +30,35 @@ export default new Router({
            name:'login',
            path:'/login',
            component:()=>import("./pages/login.vue")
+       },
+       {
+           name:'order',
+           path:'/order',
+           component:()=>import('./pages/order.vue'),
+           redirect:'/orderConfirm',
+           children:[
+               {
+                   name:'orderConfirm',
+                   path:'/orderConfirm',
+                   component:()=>import('./pages/orderConfirm.vue')
+               },
+               {
+                   name:'orderPay',
+                   path:'/orderPay',
+                   component:()=>import('./pages/orderPay.vue')
+               },
+               {
+                   name:'orderList',
+                   path:'/orderList',
+                   component:()=>import('./pages/orderList.vue')
+               }
+           ]
+       },
+       {
+           name:'cart',
+           path:'/cart',
+           component:()=>import('./pages/cart.vue')
+
        }
    ]
 })

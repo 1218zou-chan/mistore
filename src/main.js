@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCookie from 'vue-cookie'
+import {Message} from 'element-ui'; 
+import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
 import store from './store/index'
 import env from './env'
-import VueCookie from 'vue-cookie';
+
+// Vue.use(Message);
+Vue.prototype.$message = Message;
 Vue.use(VueCookie);
 Vue.use(VueAxios,axios);
 Vue.config.productionTip = false;
@@ -40,11 +45,12 @@ axios.interceptors.response.use(function(response){
     return res.data;
   }else if(res.status == 10){
     if(path != '#/index'){
-      window.location.href = '/#/login'
+      window.location.href = '/#/login';
     }
     return Promise.reject(res.msg);
   }else{
-    return Promise.reject(res.msg);
+    Message.warning(res.msg);
+    // return Promise.reject();
   }
 },(error)=>{
   return Promise.reject(error);

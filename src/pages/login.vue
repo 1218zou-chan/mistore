@@ -7,7 +7,7 @@
         </div>
        <div class="login-body">
            <div class="container">
-               <form action="" method="">
+               <div class="form">
                    <div class="form-header">
                        <span class="acc">账号登陆</span>
                        <span class="oth">|</span>
@@ -25,7 +25,7 @@
                   <div class="resize">
                     <a href="javascript:;">手机短信登陆/注册</a>
                   </div>
-               </form>
+               </div>
            </div>
        </div>
        <div class="login-footer"></div>
@@ -47,12 +47,15 @@ export default {
                 username:this.username,
                 password:this.password
             }).then((data)=>{
-                this.$router.push('/index');
                 // this.$store.state.username = data.username;
                 this.$cookie.set('id',data.id);
                 this.$store.dispatch('saveUserName',data.username);
-                console.log(this.$store.username);
-                console.log(this.$cookie.get('id'));
+                this.$router.push({
+                    name:'index',
+                    params:{
+                        from:"login"
+                    }
+                });
             })
         },
     }
@@ -79,7 +82,7 @@ export default {
         background: url('/imgs/login-bg.jpg') no-repeat center;
         .container{
             position: relative;
-            form{
+            .form{
                 width: 348px;
                 height: 510px;
                 padding: 0 31px;

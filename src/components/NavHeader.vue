@@ -13,7 +13,7 @@
                     <a href="javascript:;"  v-if = 'username'>我的订单</a>
                     <a href="javascript:;"  v-if = 'username' @click = 'exit'>退出</a>
                     <a href="/#/login"  v-if = '!username'>登陆</a>
-                    <a href="javascript:;" class="cart"><span></span>购物车({{cartCount}})</a>
+                    <a href="/#/cart" class="cart"><span></span>购物车({{cartCount}})</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
                         小米手机
                         <ul class="child">
                             <li v-for="(item,index) in productList" :key= 'index'>
-                                <a href="javascript:;">
+                                <a :href="`#/product/${item.id}`" >
                                     <div class="child-img">
                                         <img :src="item.mainImage" :alt="item.subtitle">
                                     </div>
@@ -74,7 +74,6 @@ export default {
     name:'nav-header',
     data:function(){
         return{
-            cartCount:1,
             productList:[],
         }
     },
@@ -82,9 +81,16 @@ export default {
         username(){
             return this.$store.state.username;
         },
+        cartCount(){
+            return this.$store.state.cartCount;
+        }
     },
     mounted(){
-        this.getProductList()
+        this.getProductList();
+        if(this.$route.params.from == 'login'){
+            this.cartNumber();
+        }
+        
     },
     methods:{
         getProductList(){
@@ -100,8 +106,20 @@ export default {
             })
         },
         exit(){
-            this.$cookie.delete('id');
-            location.reload();
+            this.axios.post('/user/logout').then(()=>{
+                this.$message.warning('退出成功');
+                this.$cookie.delete('id');
+                this.$store.state.username = '';
+                this.$store.state.cartCount = 0;
+
+            })
+            // this.$cookie.delete('id');
+            // location.reload();
+        },
+        cartNumber(){
+            this.axios.get('/carts/products/sum').then((res=0)=>{
+                this.$store.dispatch('saveCart',res);
+            })
         }
     },
     filters:{
@@ -160,38 +178,7 @@ export default {
             align-items: center;
             height: 112px;
             position: relative;
-            .nav-logo{
-                height: 55px;
-                width: 55px;
-                background-color: $colorA;
-                overflow: hidden;
-                &:hover a{
-                    margin-left: -55px;
-                }
-                a{
-                    display: inline-block;
-                    width: 110px;
-                    height: 55px;
-                    transition: all .5s;
-                }
-                a::before{
-                    display: inline-block;
-                    content: '';
-                    width: 55px;
-                    height: 55px;
-                    background: url('/imgs/mi-logo.png') no-repeat;
-                    background-size: 55px 55px;
-                }
-                a::after{
-                    content: '';
-                    display: inline-block;
-                    width: 55px;
-                    height: 55px;
-                    background: url('/imgs/mi-home.png') no-repeat;
-                    background-size: 55px 55px;
-                    // background-color: pink;
-                }
-            }
+            
             .nav-menu{
                 width: 852px;
                 height: 112px;

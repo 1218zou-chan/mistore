@@ -41,6 +41,7 @@ export default {
                     background: url('/imgs/icon-setting.png') no-repeat center;
                     background-size: contain;
                     vertical-align: middle;
+                    margin-right: 5px;
                     // &:nth-child(1){
                     //     background-image: url('/imgs/icon-setting.png');
                     // }

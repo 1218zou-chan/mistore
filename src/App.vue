@@ -14,12 +14,21 @@ export default {
   },
   mounted(){
     this.getUserName();
+    this.getCartCount();
   },
   methods:{
     getUserName(){
       if(this.$cookie.get('id')){
         this.axios.get('/user').then(data=>{
         this.$store.state.username = data.username;
+        })
+      }
+    },
+    getCartCount(){
+      if(this.$cookie.get('id')){
+        this.axios.get('/carts/products/sum').then((res=0)=>{
+        this.$store.dispatch('saveCart',res);
+        console.log(1);
         })
       }
     }

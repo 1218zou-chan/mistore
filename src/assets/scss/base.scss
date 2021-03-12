@@ -2,3 +2,46 @@
     width: 1226px;
     margin: 0 auto;
 }
+.nav-logo{
+    height: 55px;
+    width: 55px;
+    background-color: $colorA;
+    overflow: hidden;
+    &:hover a{
+        margin-left: -55px;
+    }
+    a{
+        display: inline-block;
+        width: 110px;
+        height: 55px;
+        transition: all .5s;
+    }
+    a::before{
+        display: inline-block;
+        content: '';
+        width: 55px;
+        height: 55px;
+        background: url('/imgs/mi-logo.png') no-repeat;
+        background-size: 55px 55px;
+    }
+    a::after{
+        content: '';
+        display: inline-block;
+        width: 55px;
+        height: 55px;
+        background: url('/imgs/mi-home.png') no-repeat;
+        background-size: 55px 55px;
+        // background-color: pink;
+    }
+}
+.clearFix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}

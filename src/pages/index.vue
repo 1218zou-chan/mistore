@@ -84,7 +84,7 @@
                                 <p>{{item.subtitle}}</p>
                                 <div class="price">
                                     {{`${item.price}元`}}
-                                    <a href="javascript:;" class="cart" @click="showModal = true">
+                                    <a href="javascript:;" class="cart" @click="addCart(item.id)">
                                     </a>
                                 </div>
                             </li>
@@ -176,10 +176,22 @@ export default {
         },
         goToCart(){
             this.$router.push('/cart');
+        },
+        addCart(id){
+            this.axios.post('/carts',{
+                productId:id,
+                selected: true
+            }).then((res)=>{
+                this.showModal = true;
+                this.$store.dispatch('saveCart',res.cartTotalQuantity);
+            }).catch(()=>{
+                this.showModal = true;
+            })
         }
     }
 }
 </script>
+
 <style lang='scss'>
 @import './../assets/scss/config.scss';
 .index{

@@ -8,7 +8,7 @@
                         <a href="javascript:;">参数</a>
                         <span>|</span>
                         <a href="javascript:;">用户评价</a>
-                        <a href="javascript:;" class="buy" v-if="buttom">立即购买</a>
+                        <a :href="`#/detail/${item}`" class="buy" v-if="buttom">立即购买</a>
                 </div>
             </div>
     </div>
@@ -18,7 +18,8 @@ export default {
     name:'product-param',
     data:function(){
         return{
-            isFixed:false
+            isFixed:false,
+            item:this.$route.params.id
         }
     },
     props:{
